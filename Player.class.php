@@ -6,11 +6,13 @@ class Player {
 
     public function __construct($name)
     {
-        // Not Used
+//        Not used
+        return null;
     }
 
     public function throwPins($throw1, $throw2 = 0)
     {
-        // Not Used
+//        Not used
+        return null;
     }
 }
