@@ -1,6 +1,7 @@
 <?php
 
-class ScoreBoard {
+class ScoreBoard
+{
     private $scores;
     private $extraPointsSpare = 5;
     private $extraPointsStrike = 10;
@@ -17,8 +18,10 @@ class ScoreBoard {
         $totalScore = $score[0] + $score[1];
         if ($score[0] === 10) {
             $totalScore += $this->extraPointsStrike;
-        } else if ($score[0] + $score[1] === 10) {
-            $totalScore += $this->extraPointsSpare;
+        } else {
+            if ($score[0] + $score[1] === 10) {
+                $totalScore += $this->extraPointsSpare;
+            }
         }
 
         $this->scores[$player] += $totalScore;
@@ -42,7 +45,6 @@ class ScoreBoard {
                     'score' => $playerScore
                 ];
             }
-
         }
         echo 'Winnaar aan het berekenen' . PHP_EOL;
         sleep(5);

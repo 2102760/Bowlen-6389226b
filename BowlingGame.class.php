@@ -17,11 +17,6 @@ class BowlingGame
         $this->askPlayerNames();
     }
 
-    private function addPlayer($playerName)
-    {
-        $this->players[] = $playerName;
-    }
-
     private function askPlayerNames()
     {
         echo 'Wat is de naam van de speler ' . $this->newPlayerNumber . '?' . PHP_EOL;
@@ -46,34 +41,9 @@ class BowlingGame
         }
     }
 
-    private function playRound()
+    private function addPlayer($playerName)
     {
-        foreach ($this->players as $player) {
-            $score = [
-                0 => 0,
-                1 => 0
-            ];
-            $pinsTrowedFirstRound = $this->throwBall($player);
-            $score[0] = $pinsTrowedFirstRound;
-            if ($pinsTrowedFirstRound != $this->maxPins) {
-                $pinsToTrow = $this->maxPins - $pinsTrowedFirstRound;
-                echo "{$player} zit te denken hoeveel hij nog moet gooien om te winnen ..." . PHP_EOL;
-                sleep(5);
-                echo "{$player} heeft bedacht dat hij nog {$pinsToTrow} kegels om moet gooien om te winnen"  . PHP_EOL;
-                echo PHP_EOL;
-                $pinsTrowedSecondRound = $this->throwBall($player, $pinsToTrow);
-                $score[1] = $pinsTrowedSecondRound;
-                if ($score[0] + $score[1] === $this->maxPins) {
-                    echo "{$player} is redelijk blij dat hij een spar heeft gegooid";
-                } else {
-                    echo "{$player} is verdrietig dat hij geen spar of strike heeft gegooid";
-                }
-            } else {
-                echo "{$player} is blij hij heeft een strike gegooid!";
-            }
-            $this->scoreBoard->calculatePlayerScore($player, $score);
-            echo PHP_EOL;
-        }
+        $this->players[] = $playerName;
     }
 
     private function playAllRounds()
@@ -91,7 +61,38 @@ class BowlingGame
         $this->scoreBoard->displayEndScores();
     }
 
-    private function throwBall($player, $maxPins = null) {
+    private function playRound()
+    {
+        foreach ($this->players as $player) {
+            $score = [
+                0 => 0,
+                1 => 0
+            ];
+            $pinsTrowedFirstRound = $this->throwBall($player);
+            $score[0] = $pinsTrowedFirstRound;
+            if ($pinsTrowedFirstRound != $this->maxPins) {
+                $pinsToTrow = $this->maxPins - $pinsTrowedFirstRound;
+                echo "{$player} zit te denken hoeveel hij nog moet gooien om te winnen ..." . PHP_EOL;
+                sleep(5);
+                echo "{$player} heeft bedacht dat hij nog {$pinsToTrow} kegels om moet gooien om te winnen" . PHP_EOL;
+                echo PHP_EOL;
+                $pinsTrowedSecondRound = $this->throwBall($player, $pinsToTrow);
+                $score[1] = $pinsTrowedSecondRound;
+                if ($score[0] + $score[1] === $this->maxPins) {
+                    echo "{$player} is redelijk blij dat hij een spar heeft gegooid";
+                } else {
+                    echo "{$player} is verdrietig dat hij geen spar of strike heeft gegooid";
+                }
+            } else {
+                echo "{$player} is blij hij heeft een strike gegooid!";
+            }
+            $this->scoreBoard->calculatePlayerScore($player, $score);
+            echo PHP_EOL;
+        }
+    }
+
+    private function throwBall($player, $maxPins = null)
+    {
         if ($maxPins === null) {
             $maxPins = $this->maxPins;
         }
@@ -103,7 +104,7 @@ class BowlingGame
         sleep(5);
         echo "{$player} gooit de bal..." . PHP_EOL;
         sleep(10);
-        $pinsTrowed = rand (0, $maxPins);
+        $pinsTrowed = rand(0, $maxPins);
         echo "{$player} kijkt naar het scoreBoard..." . PHP_EOL;
         sleep(2);
         echo "{$player} heeft {$pinsTrowed} gegooid..." . PHP_EOL;
