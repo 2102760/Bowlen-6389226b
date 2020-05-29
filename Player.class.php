@@ -1,16 +1,17 @@
 <?php
 
-class Player {
+class Player
+{
     public $name;
     public $pinsThrown;
 
-    public function __construct($name)
+    public function __construct()
     {
 //        Not used
         return null;
     }
 
-    public function throwPins($throw1, $throw2 = 0)
+    public function throwPins()
     {
 //        Not used
         return null;
